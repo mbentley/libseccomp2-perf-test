@@ -4,7 +4,23 @@ Scripts to run a Docker performance test to compare (if)efficiency of different 
 
 [Background on `libseccomp2` performance degradation](https://github.com/seccomp/libseccomp/issues/153)
 
-## List the versions of `libseccomp2` availabl
+## About the testing procedure
+
+This testing procedure was defined by xinfengliu in the [libseccomp issue](https://github.com/seccomp/libseccomp/issues/153#issuecomment-549274260) and has been adapted to be able to run in a single command for a consistent benchmark between versions to remove the human element in testing.
+
+For Docker EE 17.06, you need to install `docker-ee=3:17.06.2~ee~24~3-0~ubuntu` because `docker-ee=3:17.06.2~ee~25~3-0~ubuntu` requires a newer version of libseccomp.
+
+## List the versions of `libseccomp2` available
+
+Ubuntu 16.04:
+
+```
+libseccomp2 | 2.4.1-0ubuntu0.16.04.2 | http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages
+libseccomp2 | 2.4.1-0ubuntu0.16.04.2 | http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages
+libseccomp2 | 2.2.3-3ubuntu3 | http://us.archive.ubuntu.com/ubuntu xenial/main amd64 Packages
+```
+
+Ubuntu 18.04:
 
 ```
 # apt-cache madison libseccomp2
@@ -13,7 +29,7 @@ libseccomp2 | 2.4.1-0ubuntu0.18.04.2 | http://us.archive.ubuntu.com/ubuntu bioni
 libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main amd64 Packages
 ```
 
-## Testing procedure for 2.3.x
+## Testing procedure
 
 1. Stop Docker:
 
@@ -21,10 +37,10 @@ libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main
    systemctl stop docker
    ```
 
-1. Install `libseccomp2` 2.3.x:
+1. Install the specifc version of `libseccomp2` you wish to test:
 
    ```
-   apt-get install libseccomp2=2.3.1-2.1ubuntu4
+   apt-get install libseccomp2=2.2.3-3ubuntu3
    ```
 
 1. Start Docker:
@@ -33,82 +49,58 @@ libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main
    systemctl start docker
    ```
 
-1. Execute test with 20 containers:
+1. Execute test with 40 execs:
 
    ```
-   # ./0_runall.sh 20
-   Launching containers...done
-   ii  libseccomp2:amd64 2.3.1-2.1ubuntu4 amd64        high level interface to Linux seccomp filter
+   # ./docker-libseccomp-test.sh 40
+   Launching test container...done
+   Running exec tests...done
 
-   0:01.52 real
-   0:01.51 real
-   0:01.51 real
-   0:01.51 real
-   0:01.51 real
-   0:01.52 real
-   0:01.51 real
-   0:01.50 real
-   0:01.52 real
-   0:01.51 real
-   0:01.51 real
-   0:01.52 real
-   0:01.52 real
-   0:01.51 real
-   0:01.52 real
-   0:01.51 real
-   0:01.51 real
-   0:01.51 real
-   0:01.52 real
-   0:01.51 real
-   Removing containers...done
-   ```
+   ii  libseccomp2:amd64 2.2.3-3ubuntu3 amd64
+   0.21
+   0.23
+   3.73
+   3.73
+   3.73
+   3.73
+   3.73
+   3.73
+   3.73
+   3.74
+   3.74
+   3.74
+   3.74
+   3.74
+   3.74
+   3.74
+   3.75
+   3.75
+   3.75
+   3.75
+   3.75
+   3.75
+   3.75
+   3.75
+   3.75
+   3.76
+   3.76
+   3.76
+   3.76
+   3.76
+   3.76
+   3.77
+   3.77
+   3.77
+   3.77
+   3.77
+   3.77
+   3.77
+   3.77
+   3.78
 
-## Testing procedure for 2.4.x
+   Min: 0.21
+   Max: 3.78
+   Avg: 3.57
 
-1. Stop Docker:
-
-   ```
-   systemctl stop docker
-   ```
-
-1. Install `libseccomp2` 2.4.x:
-
-   ```
-   apt-get install libseccomp2=2.4.1-0ubuntu0.18.04.2
-   ```
-
-1. Start Docker:
-
-   ```
-   systemctl start docker
-   ```
-
-1. Execute test with 20 containers:
-
-   ```
-   # ./0_runall.sh 20
-   Launching containers...done
-   ii  libseccomp2:amd64 2.4.1-0ubuntu0.18.04.2 amd64        high level interface to Linux seccomp filter
-
-   0:04.54 real
-   0:04.54 real
-   0:04.52 real
-   0:04.54 real
-   0:04.54 real
-   0:04.54 real
-   0:04.53 real
-   0:04.54 real
-   0:04.55 real
-   0:04.53 real
-   0:04.53 real
-   0:04.55 real
-   0:04.55 real
-   0:04.55 real
-   0:04.55 real
-   0:04.53 real
-   0:04.55 real
-   0:04.54 real
-   0:04.55 real
-   0:04.55 real
-   Removing containers...done
+   Stopping and removing test container...done
    ```
