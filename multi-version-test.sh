@@ -17,5 +17,6 @@ do
 
     # run test
     DISABLE_SECCOMP=false VERBOSE=false ./multi-test.sh 10 40
+    DISABLE_SECCOMP=true VERBOSE=false ./multi-test.sh 10 40
   done
 done

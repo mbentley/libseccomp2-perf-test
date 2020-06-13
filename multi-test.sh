@@ -41,8 +41,14 @@ echo "Avg Min: $(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_min.txt)"
 echo "Avg Max: $(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_max.txt)"
 echo "Avg Avg: $(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_avg.txt)"
 
+# check to see if we need to write headers to the csv output
+if [ ! -f "test_results.csv" ]
+then
+  echo "docker-ee version,libseccomp2 version,num_loops,num_execs,disable_seccomp,min,max,avg" > test_results.csv
+fi
+
 # write output to a log file
-echo "docker-ee=$(dpkg -l docker-ee | grep ^ii | awk '{print $3}'),libseccomp2=$(dpkg -l libseccomp2 | grep ^ii | awk '{print $3}'),$(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_min.txt),$(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_max.txt),$(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_avg.txt)" >> test_results.csv
+echo "docker-ee=$(dpkg -l docker-ee | grep ^ii | awk '{print $3}'),libseccomp2=$(dpkg -l libseccomp2 | grep ^ii | awk '{print $3}'),${NUM_LOOPS},${NUM_EXECS},${DISABLE_SECCOMP},$(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_min.txt),$(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_max.txt),$(awk '{sum+=$2}END{printf "%0.2f\n",sum/NR}' stats_avg.txt)" >> test_results.csv
 
 # cleanup
 rm stats_min.txt stats_max.txt stats_avg.txt
