@@ -49,58 +49,63 @@ libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main
    systemctl start docker
    ```
 
-1. Execute test with 40 execs:
+1. Execute test with 40 execs; looped 10 times:
 
    ```
-   # ./docker-libseccomp-test.sh 40
-   Launching test container...done
-   Running exec tests...done
+   # ./multi-test.sh 10
 
-   ii  libseccomp2:amd64 2.2.3-3ubuntu3 amd64
-   0.21
-   0.23
-   3.73
-   3.73
-   3.73
-   3.73
-   3.73
-   3.73
-   3.73
-   3.74
-   3.74
-   3.74
-   3.74
-   3.74
-   3.74
-   3.74
-   3.75
-   3.75
-   3.75
-   3.75
-   3.75
-   3.75
-   3.75
-   3.75
-   3.75
-   3.76
-   3.76
-   3.76
-   3.76
-   3.76
-   3.76
-   3.77
-   3.77
-   3.77
-   3.77
-   3.77
-   3.77
-   3.77
-   3.77
-   3.78
+   Loop 1
+   Min: 1.59
+   Max: 3.87
+   Avg: 3.78
 
-   Min: 0.21
-   Max: 3.78
-   Avg: 3.57
+   Loop 2
+   Min: 1.40
+   Max: 3.86
+   Avg: 3.72
 
-   Stopping and removing test container...done
+   Loop 3
+   Min: 0.17
+   Max: 3.84
+   Avg: 3.53
+
+   Loop 4
+   Min: 3.83
+   Max: 3.87
+   Avg: 3.85
+
+   Loop 5
+   Min: 0.25
+   Max: 3.71
+   Avg: 3.47
+
+   Loop 6
+   Min: 0.20
+   Max: 3.65
+   Avg: 3.45
+
+   Loop 7
+   Min: 0.15
+   Max: 3.71
+   Avg: 3.35
+
+   Loop 8
+   Min: 2.65
+   Max: 3.89
+   Avg: 3.71
+
+   Loop 9
+   Min: 0.35
+   Max: 3.70
+   Avg: 3.59
+
+   Loop 10
+   Min: 3.59
+   Max: 3.74
+   Avg: 3.72
+
+   Average stats from 10 tests on docker-ee=3:17.06.2~ee~24~3-0~ubuntu for libseccomp2=2.2.3-3ubuntu3:
+   Avg Min: 1.42
+   Avg Max: 3.78
+   Avg Avg: 3.62
    ```
