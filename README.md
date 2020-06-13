@@ -31,9 +31,13 @@ libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main
 
 ## Automatically test multiple versions of `docker-ee` and `libseccomp2`
 
+This will test all of the combinations of the `docker-ee` and `libseccomp2` packages defined in `multi-version-test.sh` automatically:
+
 ```
 ./multi-version-test.sh > multi-out.log
 ```
+
+This will also generate output in CSV format `test_results.csv`.
 
 ## Testing a specific set of versions
 
