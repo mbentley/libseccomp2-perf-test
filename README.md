@@ -8,7 +8,7 @@ Scripts to run a Docker performance test to compare (if)efficiency of different 
 
 This testing procedure was defined by xinfengliu in the [libseccomp issue](https://github.com/seccomp/libseccomp/issues/153#issuecomment-549274260) and has been adapted to be able to run in a single command for a consistent benchmark between versions to remove the human element in testing.
 
-For Docker EE 17.06, you need to install `docker-ee=3:17.06.2~ee~24~3-0~ubuntu` because `docker-ee=3:17.06.2~ee~25~3-0~ubuntu` requires a newer version of libseccomp.
+If you want to test `libseccomp2=2.2.3-3ubuntu3`, for Docker EE 17.06, you need to install `docker-ee=3:17.06.2~ee~24~3-0~ubuntu` because `docker-ee=3:17.06.2~ee~25~3-0~ubuntu` requires a newer version of libseccomp.
 
 ## List the versions of `libseccomp2` available
 
