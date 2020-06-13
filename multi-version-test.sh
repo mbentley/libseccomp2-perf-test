@@ -7,12 +7,12 @@ DOCKER_EE_VERS="17.06.1~ee~1-0~ubuntu 17.06.1~ee~2-0~ubuntu 17.06.2~ee~3-0~ubunt
 for DOCKER_EE_VER in ${DOCKER_EE_VERS}
 do
   # install the specific version of docker
-  apt-get install -qq -y --allow-downgrades docker-ee="${DOCKER_EE_VER}"
+  apt-get install -qq -y --allow-downgrades docker-ee="${DOCKER_EE_VER}" > /dev/null
 
   for LIBSECCOMP_VER in ${LIBSECCOMP_VERS}
   do
     # install the specific version of libseccomp2
-    apt-get install -qq -y --allow-downgrades libseccomp2="${LIBSECCOMP_VER}"
+    apt-get install -qq -y --allow-downgrades libseccomp2="${LIBSECCOMP_VER}" > /dev/null
 
     # run test
     DISABLE_SECCOMP=false VERBOSE=false ./multi-test.sh 1 40
