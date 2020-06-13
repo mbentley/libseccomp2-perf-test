@@ -52,7 +52,7 @@ libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main
 1. Execute test with 40 execs; looped 10 times:
 
    ```
-   # ./multi-test.sh 10
+   # ./multi-test.sh 10 40
 
    Loop 1
    Min: 1.59
