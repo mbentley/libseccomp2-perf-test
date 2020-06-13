@@ -29,24 +29,24 @@ libseccomp2 | 2.4.1-0ubuntu0.18.04.2 | http://us.archive.ubuntu.com/ubuntu bioni
 libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main amd64 Packages
 ```
 
-## Testing procedure
+## Automatically test multiple versions of `docker-ee` and `libseccomp2`
 
-1. Stop Docker:
+```
+./multi-version-test.sh > multi-out.log
+```
+
+## Testing a specific set of versions
+
+1. Install the specific version of `docker-ee` you wish to test:
 
    ```
-   systemctl stop docker
+   apt-get install docker-ee=17.06.1~ee~1-0~ubuntu
    ```
 
 1. Install the specifc version of `libseccomp2` you wish to test:
 
    ```
    apt-get install libseccomp2=2.2.3-3ubuntu3
-   ```
-
-1. Start Docker:
-
-   ```
-   systemctl start docker
    ```
 
 1. Execute test with 40 execs; looped 10 times with the default seccomp profile used on the container:
@@ -109,3 +109,4 @@ libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main
    Avg Max: 3.78
    Avg Avg: 3.62
    ```
+
