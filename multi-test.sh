@@ -9,18 +9,30 @@ NUM_EXECS="${2:-40}"
 # set default to not disable seccomp on the test container
 DISABLE_SECCOMP="${DISABLE_SECCOMP:-false}"
 
+# set default to be more verbose
+VERBOSE="${VERBOSE:-true}"
+
 # let user know what test we are doing
-echo "Running ${NUM_LOOPS} loops of ${NUM_EXECS} execs"
+if [ "${VERBOSE}" = "true" ]
+then
+  echo "Running ${NUM_LOOPS} loops of ${NUM_EXECS} execs"
+fi
 
 # loop through the test
 for LOOP in $(seq 1 "${NUM_LOOPS}")
 do
-  echo -e "\nLoop ${LOOP}"
+  if [ "${VERBOSE}" = "true" ]
+  then
+    echo -e "\nLoop ${LOOP}"
+  fi
   STATS="$(DISABLE_SECCOMP="${DISABLE_SECCOMP}" ./docker-libseccomp-test.sh "${NUM_EXECS}" | grep -E '(Min:)|(Max:)|(Avg:)')"
   echo "${STATS}" | grep Min >> stats_min.txt
   echo "${STATS}" | grep Max >> stats_max.txt
   echo "${STATS}" | grep Avg >> stats_avg.txt
-  echo "${STATS}"
+  if [ "${VERBOSE}" = "true" ]
+  then
+    echo "${STATS}"
+  fi
 done
 
 # get averages of each stat
