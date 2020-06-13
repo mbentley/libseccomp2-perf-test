@@ -9,14 +9,16 @@ do
   # install the specific version of docker
   DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --allow-downgrades docker-ee="${DOCKER_EE_VER}" > /dev/null
 
+  # run test w/seccomp disabled
+  DISABLE_SECCOMP=true VERBOSE=false ./multi-test.sh 10 40
+
   # install each version of libseccomp
   for LIBSECCOMP_VER in ${LIBSECCOMP_VERS}
   do
     # install the specific version of libseccomp2
     DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --allow-downgrades libseccomp2="${LIBSECCOMP_VER}" > /dev/null
 
-    # run test
+    # run test w/seccomp enabled
     DISABLE_SECCOMP=false VERBOSE=false ./multi-test.sh 10 40
-    DISABLE_SECCOMP=true VERBOSE=false ./multi-test.sh 10 40
   done
 done
