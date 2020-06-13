@@ -3,9 +3,22 @@
 # set default value to 40 execs
 NUM_EXECS="${1:-40}"
 
+# set default to not disable seccomp on the test container
+DISABLE_SECCOMP="${DISABLE_SECCOMP:-false}"
+
 # launch test container
-echo -n "Launching test container..."
-docker run -itd --name test_seccomp busybox /bin/sh > /dev/null
+# disable seccomp if requested
+if [ "${DISABLE_SECCOMP}" = "true" ]
+then
+  # disable seccomp
+  echo -n "Launching test container (seccomp disabled)..."
+  docker run -itd --name test_seccomp --security-opt seccomp=unconfined busybox /bin/sh > /dev/null
+else
+  # leave seccomp on
+  echo -n "Launching test container (seccomp enabled)..."
+  docker run -itd --name test_seccomp busybox /bin/sh > /dev/null
+fi
+
 echo "done"
 
 echo -ne "Running exec tests..."
