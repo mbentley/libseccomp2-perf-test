@@ -49,10 +49,10 @@ libseccomp2 | 2.3.1-2.1ubuntu4 | http://us.archive.ubuntu.com/ubuntu bionic/main
    systemctl start docker
    ```
 
-1. Execute test with 40 execs; looped 10 times:
+1. Execute test with 40 execs; looped 10 times with the default seccomp profile used on the container:
 
    ```
-   # ./multi-test.sh 10 40
+   # DISABLE_SECCOMP=false ./multi-test.sh 10 40
 
    Loop 1
    Min: 1.59
