@@ -16,6 +16,6 @@ do
     DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --allow-downgrades libseccomp2="${LIBSECCOMP_VER}" > /dev/null
 
     # run test
-    DISABLE_SECCOMP=false VERBOSE=false ./multi-test.sh 1 40
+    DISABLE_SECCOMP=false VERBOSE=false ./multi-test.sh 10 40
   done
 done
