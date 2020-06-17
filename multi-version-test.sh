@@ -12,6 +12,16 @@ do
   # run test w/seccomp disabled
   DISABLE_SECCOMP=true VERBOSE=false ./multi-test.sh 10 40
 
+  # test to see if we are going to run a version of docker-ee that supports libseccomp 2.2
+  if [ "${DOCKER_EE_VER}" != "3:17.06.2~ee~25~3-0~ubuntu" ] && [ "$(echo "${DOCKER_EE_VER}" | grep 17.06 > /dev/null; echo $?)" != "1" ]
+  then
+    # supports libseccomp 2.2.x; install libseccomp2
+    DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --allow-downgrades libseccomp2=2.2.3-3ubuntu3 > /dev/null
+
+    # run test w/seccomp enabled
+    DISABLE_SECCOMP=false VERBOSE=false ./multi-test.sh 10 40
+  fi
+
   # install each version of libseccomp
   for LIBSECCOMP_VER in ${LIBSECCOMP_VERS}
   do
